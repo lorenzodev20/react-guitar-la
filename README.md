@@ -1,4 +1,4 @@
-# GuitarLa - React
+# GuitarLa - React - JavaScript versión
 
 Se recomienda usar [NVM](https://github.com/nvm-sh/nvm) para instalar y gestionar la versión adecuada:
 
@@ -8,5 +8,5 @@ nvm install
 nvm use
 ```
 
-Practica de componentes, hooks, useState, useEffect, useMemo
+Manejo de funciones de React.js por ejemplo: componentes, hooks, useState, useEffect, useMemo
 

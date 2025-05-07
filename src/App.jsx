@@ -11,7 +11,7 @@ function App() {
   }
 
   // Hooks siempre van en la parte superior del componente dentro de la función
-  const [data, setData] = useState(db); //read guitars from db
+  const [data] = useState(db); //read guitars from db
   const [cart, setCart] = useState(initialState);
   const MAX_ITEMS = 10;
 
