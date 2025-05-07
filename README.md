@@ -8,3 +8,5 @@ nvm install
 nvm use
 ```
 
+Practica de componentes, hooks, useState, useEffect, useMemo
+
