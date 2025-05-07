@@ -1,73 +1,23 @@
-import { useState, useEffect } from 'react'
 import Guitar from './components/Guitar'
 import Header from './components/Header'
-import { db } from './data/db'
+import useCart from './hooks/useCart'
 
 function App() {
 
-  const initialState = () => {
-    const cartString = localStorage.getItem('cart');
-    return cartString ? JSON.parse(cartString) : [];
-  }
+  const {
+    data,
+    cart,
+    setCart,
+    addToCart,
+    removeFromCart,
+    increaseQuantity,
+    decreaseQuantity,
+    clearCart,
+    MAX_ITEMS,
+    isEmpty,
+    cartTotal,
+  } = useCart();
 
-  // Hooks siempre van en la parte superior del componente dentro de la función
-  const [data] = useState(db); //read guitars from db
-  const [cart, setCart] = useState(initialState);
-  const MAX_ITEMS = 10;
-
-  useEffect(() => {
-    // getFromLocalStorage();
-    saveInLocalStorage();
-  }, [cart]);
-
-  function addToCart(item) {
-    const itemExists = cart.findIndex((guitar) => guitar.id === item.id);
-    if (itemExists >= 0) {
-      const newCart = [...cart];
-      newCart[itemExists].quantity++;
-      setCart(newCart);
-    } else {
-      item.quantity = 1;
-      setCart(prevCart => [...prevCart, item]);
-    }
-  }
-
-  function removeFromCart(id) {
-    setCart(prevCart => prevCart.filter((guitar) => guitar.id !== id));
-  }
-
-  function increaseQuantity(id) {
-    const updatedCart = cart.map((guitar) => {
-      if (guitar.id === id) {
-        if (guitar.quantity >= MAX_ITEMS) {
-          alert(`No puedes agregar más de ${MAX_ITEMS} unidades`);
-          return guitar;
-        }
-        return { ...guitar, quantity: guitar.quantity + 1 };
-      }
-      return guitar;
-    });
-    setCart(updatedCart);
-  }
-
-  function decreaseQuantity(id) {
-    const updatedCart = cart.map((guitar) => {
-      if (guitar.id === id && guitar.quantity > 1) {
-        return { ...guitar, quantity: guitar.quantity - 1 };
-      }
-      return guitar;
-    });
-    setCart(updatedCart);
-  }
-
-  function clearCart() {
-    setCart([]);
-  }
-
-  function saveInLocalStorage() {
-    const cartString = JSON.stringify(cart);
-    localStorage.setItem('cart', cartString);
-  }
   return (
     <>
       <Header
@@ -77,6 +27,8 @@ function App() {
         decreaseQuantity={decreaseQuantity}
         maxItems={MAX_ITEMS}
         clearCart={clearCart}
+        isEmpty={isEmpty}
+        cartTotal={cartTotal}
       />
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
